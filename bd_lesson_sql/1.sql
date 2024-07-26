@@ -1,27 +1,27 @@
 CREATE TABLE Regions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Locations (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Address VARCHAR(255),
     Region_id INTEGER,
-    FOREIGN KEY (Region_id) REFERENCES Regions(id)
+    CONSTRAINT fk_Region FOREIGN KEY (Region_id) REFERENCES Regions(id)
 );
 
 CREATE TABLE Departments (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Location_id INTEGER,
     Manager_id INTEGER,
-    FOREIGN KEY (Location_id) REFERENCES Locations(id),
-    FOREIGN KEY (Manager_id) REFERENCES Employees(id)
+    CONSTRAINT fk_Location FOREIGN KEY (Location_id) REFERENCES Locations(id),
+    CONSTRAINT fk_Manager FOREIGN KEY (Manager_id) REFERENCES Employees(id)
 );
 
 CREATE TABLE Employees (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Last_name VARCHAR(255) NOT NULL,
     Hire_date DATE,
@@ -29,6 +29,6 @@ CREATE TABLE Employees (
     Email VARCHAR(255),
     Manager_id INTEGER,
     Department_id INTEGER,
-    FOREIGN KEY (Manager_id) REFERENCES Employees(id),
-    FOREIGN KEY (Department_id) REFERENCES Departments(id)
+    CONSTRAINT fk_Manager FOREIGN KEY (Manager_id) REFERENCES Employees(id),
+    CONSTRAINT fk_Department FOREIGN KEY (Department_id) REFERENCES Departments(id)
 );
